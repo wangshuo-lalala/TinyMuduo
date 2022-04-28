@@ -6,7 +6,7 @@
 #define TINYMUDUO_POLLDATA_H
 #include <Base/Nocopyable.h>
 #include <memory>
-
+#include <poll.h>
 
 namespace jing
 {
@@ -24,31 +24,31 @@ namespace jing
 
         void enableReading()
         {
-
+            m_events |= (POLLIN | POLLPRI);
         }
         void disableReading()
         {
-
+            m_events &= ~(POLLIN | POLLPRI);
         }
         void enableWriting()
         {
-
+            m_events |= POLLOUT;
         }
         void disableWriting()
         {
-
+            m_events &= ~POLLOUT;
         }
         void disableAll()
         {
-
+            m_events = 0;
         }
         bool isReading()
         {
-
+            return m_events & (POLLIN | POLLPRI);
         }
         bool isWriting()
         {
-
+            return m_events & POLLOUT;
         }
 
     private:
