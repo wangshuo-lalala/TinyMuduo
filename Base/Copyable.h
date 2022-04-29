@@ -1,5 +1,5 @@
-#ifndef NOCOPYABLE_H
-#define NOCOPYABLE_H
+#ifndef COPYABLE_H
+#define COPYABLE_H
 
 namespace jing
 {

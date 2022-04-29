@@ -2,25 +2,30 @@
 // Created by shuo on 2022/4/16.
 //
 
-#ifndef TINYMUDUO_POLLDATA_H
-#define TINYMUDUO_POLLDATA_H
+#ifndef TINYMUDUO_POLLEVENTHANDLER_H
+#define TINYMUDUO_POLLEVENTHANDLER_H
 #include <Base/Nocopyable.h>
+#include <Base/TimeStamp.h>
 #include <memory>
 #include <poll.h>
+#include <functional>
 
 namespace jing
 {
     class EventLoop;
     class EventCallBack;
-    class PollData : public Nocopyable
+    class PollEventHandler : public Nocopyable
     {
+        using EventCallBack = std::function<void()>;
     public:
-        void handleEvent();
+        explicit PollEventHandler(int fd = -1);
 
-        void setReadCallBack(std::shared_ptr<EventCallBack> callBack);
-        void setWriteCallBack(std::shared_ptr<EventCallBack> callBack);
-        void setCloseCallBack(std::shared_ptr<EventCallBack> callBack);
-        void setErrorCallBack(std::shared_ptr<EventCallBack> callBack);
+        void handleEvent(TimeStamp stamp);
+
+        void setReadCallBack(EventCallBack callBack);
+        void setWriteCallBack(EventCallBack callBack);
+        void setCloseCallBack(EventCallBack callBack);
+        void setErrorCallBack(EventCallBack callBack);
 
         void enableReading()
         {
@@ -42,28 +47,54 @@ namespace jing
         {
             m_events = 0;
         }
-        bool isReading()
+        bool isReading() const
         {
             return m_events & (POLLIN | POLLPRI);
         }
-        bool isWriting()
+        bool isWriting() const
         {
             return m_events & POLLOUT;
         }
 
+        int fd() const
+        {
+            return m_fd;
+        }
+
+        int events() const
+        {
+            return m_events;
+        }
+
+        int revents() const
+        {
+            return m_revents;
+        }
+
+        void setRevents(int events)
+        {
+            m_revents = events;
+        }
+
+        bool isHandling() const
+        {
+            return m_isHandling;
+        }
     private:
+        bool m_isHandling;
+
         int m_fd;
         int m_events;
         int m_revents;
 
         std::shared_ptr<EventLoop> m_eventLoop;
-        std::shared_ptr<EventCallBack> m_readCallBack;
-        std::shared_ptr<EventCallBack> m_writeCallBack;
-        std::shared_ptr<EventCallBack> m_closeCallBack;
-        std::shared_ptr<EventCallBack> m_errorCallBack;
+        EventCallBack m_readCallBack;
+        EventCallBack m_writeCallBack;
+        EventCallBack m_closeCallBack;
+        EventCallBack m_errorCallBack;
     };
 }
 
 
 
-#endif //TINYMUDUO_POLLDATA_H
+#endif //TINYMUDUO_POLLEVENTHANDLER_H

@@ -12,6 +12,7 @@ namespace jing
     // need to override the operator() to reply the event
     class EventCallBack
     {
+    public:
         virtual void operator()() = 0;
     };
 }

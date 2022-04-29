@@ -39,3 +39,21 @@ jing::LogStream::self &jing::LogStream::operator<<(const std::string &v)
     m_buffer.append(v.c_str(), static_cast<int>(v.size()));
     return *this;
 }
+
+jing::LogStream::self &jing::LogStream::operator<<(ulong v)
+{
+    append(v);
+    return *this;
+}
+
+jing::LogStream::self &jing::LogStream::operator<<(long v)
+{
+    append(v);
+    return *this;
+}
+
+jing::LogStream::self &jing::LogStream::operator<<(long long int v)
+{
+    append(v);
+    return *this;
+}

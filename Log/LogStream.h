@@ -19,6 +19,9 @@ namespace jing
     public:
         self& operator<<(bool v);
         self& operator<<(int v);
+        self& operator<<(ulong v);
+        self& operator<<(long v);
+        self& operator<<(long long v);
         self& operator<<(float v);
         self& operator<<(double v);
         self& operator<<(const char* v);
