@@ -68,7 +68,7 @@ namespace jing
     };
     const int SmallFixBuffer = 1024;
     const int LargeFixBuffer = 1024 * 1024;
-    using Buffer = FixBuffer<SmallFixBuffer>;
+    using LogBuffer = FixBuffer<SmallFixBuffer>;
     //using LargerBuffer = FixBuffer<SmallFixBuffer>;
 }
 #endif //MUDUO_FIXBUFFER_H

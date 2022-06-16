@@ -119,7 +119,7 @@ bool jing::EventLoop::isInloopThread()
 
 void jing::EventLoop::runInloop(std::function<void()> func)
 {
-    if (isInloopThread())
+    if (isInloopThread() && m_isLooping)
     {
         func();
     }
@@ -188,6 +188,11 @@ void jing::EventLoop::wakeUp()
     {
         LOG_ERROR << "eventfd write error";
     }
+}
+
+int jing::EventLoop::getHandlerNum() const
+{
+    return m_poller->getHandlerNum();
 }
 
 

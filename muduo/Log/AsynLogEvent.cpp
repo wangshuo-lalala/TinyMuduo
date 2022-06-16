@@ -40,7 +40,7 @@ void jing::AsynLogEvent::log(const char* buf, int length)
         }
         else
         {
-            m_currentBuffer = std::make_unique<Buffer>();
+            m_currentBuffer = std::make_unique<LogBuffer>();
         }
         m_currentBuffer->append(buf, length);
         m_condition.notify_one();
@@ -49,10 +49,10 @@ void jing::AsynLogEvent::log(const char* buf, int length)
 
 void jing::AsynLogEvent::run()
 {
-    m_currentBuffer = std::make_unique<Buffer>();
-    m_nextBuffer = std::make_unique<Buffer>();
-    BufferPtr bufferCache1 = std::make_unique<Buffer>();
-    BufferPtr bufferCache2 = std::make_unique<Buffer>();
+    m_currentBuffer = std::make_unique<LogBuffer>();
+    m_nextBuffer = std::make_unique<LogBuffer>();
+    BufferPtr bufferCache1 = std::make_unique<LogBuffer>();
+    BufferPtr bufferCache2 = std::make_unique<LogBuffer>();
     FILE* pFile = fopen(m_fileName.c_str(), "a");
     if (!pFile)
     {

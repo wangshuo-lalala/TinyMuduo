@@ -27,7 +27,7 @@ namespace jing
         self& operator<<(const char* v);
         self& operator<<(const std::string& v);
 
-        Buffer& buffer()
+        LogBuffer& buffer()
         {
             return m_buffer;
         }
@@ -39,7 +39,7 @@ namespace jing
             m_buffer.append(tmp.c_str(), static_cast<int>(tmp.size()));
         }
     private:
-        Buffer m_buffer;
+        LogBuffer m_buffer;
     };
 }
 

@@ -13,7 +13,6 @@
 namespace jing
 {
     class EventLoop;
-    class EventCallBack;
     class PollEventHandler : public Nocopyable
     {
         using EventCallBack = std::function<void()>;

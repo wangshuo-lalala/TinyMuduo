@@ -30,6 +30,8 @@ namespace jing
         virtual void poll(int timeMs, EventHandlers& activeHandlers) = 0;
 
         static std::unique_ptr<Poller> createDefaultPoller();
+
+        int getHandlerNum() const;
     protected:
         EventHandlerMap m_handlerMap;
     };

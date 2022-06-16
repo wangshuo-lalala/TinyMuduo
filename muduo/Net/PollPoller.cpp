@@ -9,7 +9,6 @@
 void jing::PollPoller::poll(int timeMs, jing::PollPoller::EventHandlers &activeHandlers)
 {
     int numEvents = ::poll(m_pollFds.data(), m_pollFds.size(), timeMs);
-    TimeStamp now(TimeStamp::now());
     if (numEvents > 0)
     {
         fillActiveHandlers(activeHandlers);
@@ -48,6 +47,14 @@ void jing::PollPoller::removeHandler(std::shared_ptr<PollEventHandler> handler)
     }
     else
     {
+        for (auto itr = m_pollFds.begin(); itr != m_pollFds.end(); ++itr)
+        {
+            if (itr->fd == handler->fd())
+            {
+                m_pollFds.erase(itr);
+                break;
+            }
+        }
         m_handlerMap.erase(m_handlerMap.find(handler->fd()));
     }
 }

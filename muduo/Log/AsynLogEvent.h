@@ -16,7 +16,7 @@ namespace jing
     const int ROLL_SIZE = 1024 * 1024 * 1024;
     class AsynLogEvent : public ILogEvent
     {
-        using BufferPtr = std::unique_ptr<Buffer>;
+        using BufferPtr = std::unique_ptr<LogBuffer>;
         using Buffers = std::vector<BufferPtr>;
     public:
         explicit AsynLogEvent(std::string fileName = "./jinglog", int rollSize = ROLL_SIZE);

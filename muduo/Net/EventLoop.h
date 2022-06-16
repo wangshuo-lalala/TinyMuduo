@@ -60,6 +60,8 @@ namespace jing
         TimerID runEvery(double intervel, TimerCallBack callback);
 
         void cancelTimer(TimerID timer);
+
+        int getHandlerNum() const;
     private:
         bool m_isLooping;
         bool m_callingFunctors;

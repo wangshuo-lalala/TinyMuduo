@@ -36,6 +36,12 @@ namespace jing
             return this->m_microSecondSinceEpoch < rhs.m_microSecondSinceEpoch;
         }
 
+        void updateToNow()
+        {
+            auto timeNow = system_clock::now();
+            m_microSecondSinceEpoch = duration_cast<microseconds>(timeNow.time_since_epoch()).count();
+        }
+
         static TimeStamp now()
         {
             auto timeNow = system_clock::now();

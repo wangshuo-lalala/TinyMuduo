@@ -65,7 +65,9 @@ namespace jing {
             for (auto& item : m_logEvents)
             {
                 item->log(buf, length);
+                item->log("\n", 1);
             }
+
         }
 
         void useDefault()
